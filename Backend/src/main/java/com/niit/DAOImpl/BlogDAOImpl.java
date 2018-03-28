@@ -147,9 +147,7 @@ public class BlogDAOImpl implements BlogDAO {
 	public List<Blog> listAllBlogs() {
 		try {
 			Session session = sessionFactory.openSession();
-			Query query = session.createQuery("from Blog");
-			List<Blog> listBlogs = query.getResultList();
-			return listBlogs;
+			return session.createQuery("from Blog").getResultList();
 
 		} catch (Exception e) {
 			return null;

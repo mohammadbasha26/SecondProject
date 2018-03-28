@@ -19,10 +19,13 @@ import com.niit.DAO.JobDAO;
 import com.niit.DAOImpl.BlogDAOImpl;
 import com.niit.DAOImpl.ForumDAOImpl;
 import com.niit.DAOImpl.JobDAOImpl;
+import com.niit.model.ApplyJob;
 import com.niit.model.Blog;
+import com.niit.model.BlogComment;
 import com.niit.model.Forum;
+import com.niit.model.ForumComment;
 import com.niit.model.Job;
-import com.niit.model.Test;
+import com.niit.model.User;
 
 @Configuration
 @ComponentScan(basePackages= {"com.niit"})
@@ -48,8 +51,12 @@ public class DBConfig {
 		sessionFactoryBuilder.addProperties(hibernateProp);
 
 		sessionFactoryBuilder.addAnnotatedClass(Blog.class);
+		sessionFactoryBuilder.addAnnotatedClass(BlogComment.class);
 		sessionFactoryBuilder.addAnnotatedClass(Forum.class);
+		sessionFactoryBuilder.addAnnotatedClass(ForumComment.class);
 		sessionFactoryBuilder.addAnnotatedClass(Job.class);
+		sessionFactoryBuilder.addAnnotatedClass(ApplyJob.class);
+		sessionFactoryBuilder.addAnnotatedClass(User.class);
 
 
 		SessionFactory sessionFactory = sessionFactoryBuilder.buildSessionFactory();
@@ -71,12 +78,12 @@ public class DBConfig {
 		return new ForumDAOImpl();
 	}
 
-	/*@Bean(name="jobDAO")
+	@Bean(name="jobDAO")
 	public JobDAO getJobDAO()
 	{
 		return new JobDAOImpl();
 	}
-	*/
+	
 	@Bean
 	public HibernateTransactionManager getHibernateTransactionManager() {
 

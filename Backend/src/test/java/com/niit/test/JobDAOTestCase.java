@@ -2,6 +2,7 @@ package com.niit.test;
 
 import static org.junit.Assert.*;
 
+import java.util.Date;
 import java.util.List;
 
 import org.junit.BeforeClass;
@@ -10,7 +11,7 @@ import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.niit.DAO.JobDAO;
-import com.niit.model.Blog;
+
 import com.niit.model.Job;
 
 
@@ -28,16 +29,18 @@ context.refresh();
 jobDAO=(JobDAO)context.getBean("jobDAO");
 
 	}
-	@Ignore
+	
 	@Test
 	public void addJobTest()
 	{
 		Job job=new Job();
 		job.setCompany("Company");
-		job.setJobDesignation("jobDesignation");
-		job.setSalary(200000);
+		job.setJobDesignation("cgcgcgcgcgcgcgcgcgc");
+		job.setJobDescription("Spring Developer");
+		job.setSalary(20000);
 		job.setLocation("Bangalore");
-		job.setCreateDate(new java.util.Date());
+		job.setCreatedDate(new Date());
+		
 		assertTrue("Problem in job Inseron",jobDAO.addJob(job));
 		
 		}
@@ -46,7 +49,7 @@ jobDAO=(JobDAO)context.getBean("jobDAO");
 	@Test
 	public void deleteJobTest()
 	{
-		assertTrue("Problem in Job Deletion:",jobDAO.deleteJob(102) );
+		assertTrue("Problem in Job Deletion:",jobDAO.deleteJob(702));
 	}
 	
 	@Ignore

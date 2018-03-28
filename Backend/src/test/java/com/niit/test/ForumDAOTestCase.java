@@ -47,7 +47,7 @@ forumDAO=(ForumDAO)context.getBean("forumDAO");
 	@Test
 	public void deleteForumTest()
 	{
-		assertTrue("Problem in forum Deletion:",forumDAO.deleteForum(102) );
+		assertTrue("Problem in forum Deletion:",forumDAO.deleteForum(24) );
 	}
 	@Ignore
 	@Test

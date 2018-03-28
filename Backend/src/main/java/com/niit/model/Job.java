@@ -1,9 +1,11 @@
 package com.niit.model;
 
+
 import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -18,12 +20,28 @@ import org.hibernate.annotations.Generated;
 @SequenceGenerator(name="jobidseq",sequenceName="myjob_seq")
 public class Job {
 	@Id
-	@GeneratedValue
-	String jobId;
-	public String getJobId() {
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="jobidseq")
+	private int jobId;
+	private String jobDesignation;
+	private String company;
+	private int salary;
+	private 	String location;
+	private String jobDescription;
+	private Date createdDate;
+	
+	
+	
+	
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+	public int getJobId() {
 		return jobId;
 	}
-	public void setJobId(String jobId) {
+	public void setJobId(int jobId) {
 		this.jobId = jobId;
 	}
 	public String getJobDesignation() {
@@ -55,18 +73,6 @@ public class Job {
 	}
 	public void setJobDescription(String jobDescription) {
 		this.jobDescription = jobDescription;
-	}
-	private String jobDesignation;
-	private String company;
-	private int salary;
-	private 	String location;
-	private String jobDescription;
-	private Date createDate;
-	public Date getCreateDate() {
-		return createDate;
-	}
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
 	}
 	
 
