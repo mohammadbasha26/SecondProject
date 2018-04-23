@@ -1,0 +1,17 @@
+
+<div class="container" data-ng-controller="BlogController">
+	<table class="table">
+		<tr>
+			<td>Blog Name</td>
+			<td>Blog Content</td>
+			<td>Status</td>
+		</tr>
+		<tr data-ng-repeat="blog in blogdata">
+			<td>{{blog.blogName}}</td>
+			<td>{{blog.blogContent}}</td>
+			<td>{{blog.status}}</td>
+		</tr>
+
+
+	</table>
+</div>
