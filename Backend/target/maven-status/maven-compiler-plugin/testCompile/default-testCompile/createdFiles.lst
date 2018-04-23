@@ -1,0 +1,7 @@
+com\niit\test\ForumCommentDAOTestCase.class
+com\niit\test\JobDAOTestCase.class
+com\niit\test\BlogCommentDAOTestCase.class
+com\niit\test\BlogDAOTestCase.class
+com\niit\test\UserDAOTestCase.class
+com\niit\test\BlogDAOTest.class
+com\niit\test\ForumDAOTestCase.class

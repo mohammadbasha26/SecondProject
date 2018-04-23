@@ -90,6 +90,14 @@ blogDAO=(BlogDAO)context.getBean("blogDAO");
 		Blog blog=blogDAO.getBlog(152);
 		assertTrue("Problem in increment of likes:",blogDAO.incrementLike(blog));
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 	}
 
 

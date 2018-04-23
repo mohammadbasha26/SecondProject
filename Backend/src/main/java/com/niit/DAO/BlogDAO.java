@@ -14,12 +14,14 @@ public interface BlogDAO {
 	public List<Blog> listBlogs(String username);
 
 	public boolean approvalBlog(Blog blog);
+	public List<Blog> listApprovedBlogs();
 
 	public boolean rejectBlog(Blog blog);
 
 	public Blog getBlog(int blogId);
 
 	public List<Blog> listAllBlogs();
+
 
 	public boolean incrementLike(Blog blog);
 }

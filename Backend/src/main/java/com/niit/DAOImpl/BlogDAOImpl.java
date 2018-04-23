@@ -39,6 +39,7 @@ public class BlogDAOImpl implements BlogDAO {
 			return true;
 
 		} catch (Exception e) {
+			e.printStackTrace();
 			return false;
 		}
 	}
@@ -70,7 +71,7 @@ public class BlogDAOImpl implements BlogDAO {
 	}
 
 	@Transactional
-	public List<Blog> listBlogs(String username) {
+	public List<Blog>listBlogs(String username) {
 		try {
 			Session session = sessionFactory.openSession();
 			Query query = session.createQuery("from Blog where loginname=:username");
@@ -78,6 +79,7 @@ public class BlogDAOImpl implements BlogDAO {
 			List<Blog> listBlogs = query.getResultList();
 			return listBlogs;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return null;
 
 		}
@@ -144,12 +146,10 @@ public class BlogDAOImpl implements BlogDAO {
 	 
 
 	@Transactional
-	public List<Blog> listAllBlogs() {
+	public List<Blog>listAllBlogs() {
 		try {
 			Session session = sessionFactory.openSession();
-			Query query = session.createQuery("from Blog");
-			List<Blog> listBlogs = query.getResultList();
-			return listBlogs;
+			return session.createQuery("from Blog").getResultList();
 
 		} catch (Exception e) {
 			return null;
@@ -174,5 +174,18 @@ public class BlogDAOImpl implements BlogDAO {
 		}
 }
 
-	
-}
+	public List<Blog>listApprovedBlogs() {
+		try {
+			Session session = sessionFactory.openSession();
+			Query query = session.createQuery("from Blog where status='A'");
+			//query.setParameter("status", status);
+			List<Blog> listBlogs = query.getResultList();
+			return listBlogs;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+
+		}
+
+	}}
+

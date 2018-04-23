@@ -10,7 +10,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-//@Table(name="blog")
+@Table(name="blog")
 @SequenceGenerator(name="blogidseq",sequenceName="myblog_seq")
 public class Blog {
 	@Id

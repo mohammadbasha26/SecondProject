@@ -2,7 +2,6 @@ package com.niit.DAO;
 
 import java.util.List;
 
-import org.junit.Ignore;
 
 
 import com.niit.model.Forum;

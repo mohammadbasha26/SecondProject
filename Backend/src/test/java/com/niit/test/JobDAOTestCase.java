@@ -2,6 +2,7 @@ package com.niit.test;
 
 import static org.junit.Assert.*;
 
+import java.util.Date;
 import java.util.List;
 
 import org.junit.BeforeClass;
@@ -10,7 +11,7 @@ import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.niit.DAO.JobDAO;
-import com.niit.model.Blog;
+
 import com.niit.model.Job;
 
 
@@ -28,17 +29,19 @@ context.refresh();
 jobDAO=(JobDAO)context.getBean("jobDAO");
 
 	}
-	@Ignore
+	
 	@Test
-	public void addJobTest()
+	public void publishJobTest()
 	{
 		Job job=new Job();
 		job.setCompany("Company");
-		job.setJobDesignation("jobDesignation");
-		job.setSalary(200000);
+		job.setJobDesignation("cgcgcgcgcgcgcgcgcgc");
+		job.setJobDescription("Spring Developer");
+		job.setSalary(20000);
 		job.setLocation("Bangalore");
-		job.setCreateDate(new java.util.Date());
-		assertTrue("Problem in job Inseron",jobDAO.addJob(job));
+		job.setCreatedDate(new Date());
+		
+		assertTrue("Problem in job Inseron",jobDAO.publishJob(job));
 		
 		}
 	
@@ -46,30 +49,17 @@ jobDAO=(JobDAO)context.getBean("jobDAO");
 	@Test
 	public void deleteJobTest()
 	{
-		assertTrue("Problem in Job Deletion:",jobDAO.deleteJob(102) );
+		assertTrue("Problem in Job Deletion:",jobDAO.deleteJob(702));
 	}
 	
-	@Ignore
-	@Test
-	public void rejectJobTest() {
-	Job job=jobDAO.getJob(52);
-		assertTrue("Problem in job Rejection:",jobDAO.rejectJob(job));
-	}
-	
-	@Ignore
-	@Test
-	public void approvalJobTest() {
-		Job job=jobDAO.getJob(52);
-		assertTrue("Problem in job Approval:",jobDAO.approvalJob(job));
-	}
 	
 	
 	@Ignore	
 	@Test
-	public void listBlogsByUserTest()
+	public void listJobsTest()
 	{
-		List<Job>listJobs=jobDAO.listJobs("Rahul kumar");
-		assertTrue("Problem in Listing Jobs", listJobs.size()>0);
+		List<Job>listJobs=jobDAO.listAllJobs();
+		assertNotNull("problem in listing jobs",listJobs);
 		for(Job job:listJobs)
 		{
 			System.out.println(job.getCompany()+":::");
@@ -77,5 +67,15 @@ jobDAO=(JobDAO)context.getBean("jobDAO");
 		}
 	}
 	
+	@Ignore
+	@Test
+	public void updateJobTest()
+	{
+		Job job=jobDAO.getJob(123);
+		job.setCompany("ajshk");
+		job.setJobDesignation("gkjdsahgku");
+		
+		
+		assertTrue("Problem in updation",jobDAO.updateJob(123));
+	}
 }
-
