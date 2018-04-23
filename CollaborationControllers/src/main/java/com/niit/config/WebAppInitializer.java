@@ -1,15 +1,8 @@
 package com.niit.config;
 
-
-
-
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import com.niit.DBConfig.DBConfig;
-
-
-
-
 
 public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer
 {

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.HttpSessionMutexListener;
 
 import com.niit.DAO.BlogDAO;
 import com.niit.model.Blog;
@@ -23,6 +22,7 @@ public class BlogController {
 
 	@Autowired
 	BlogDAO blogDAO;
+	
 
 	@GetMapping(value = "/demo")
 	public ResponseEntity<String> demo() {
@@ -40,71 +40,71 @@ public class BlogController {
 	}
 
 	@PostMapping("/addBlog")
-	public ResponseEntity<String> addBlog(@RequestBody Blog blog) {
+	public ResponseEntity<Blog> addBlog(@RequestBody Blog blog,HttpSession session) {
 
-		//blog.setStatus("NA");
-		//blog.setLikes(0);
-		//blog.setLoginname("Ravi Kumar");
-		// blog.setUsername(session.getAttribute("username").toString());
-		// String date = dt.getDateTime();
+	
+		blog.setStatus("NA");
+		String uname=session.getAttribute("u").toString();
+		blog.setLoginname(uname);
 		blog.setCreateDate(new Date());
 		// boolean value = blogDAO.addBlog(blog);
 		
 		System.out.println("Blog Name:"+blog.getBlogName());
 		System.out.println("Blog Content:"+blog.getBlogContent());
-		
+
 		if (blogDAO.addBlog(blog)) 
 		{
 
-			return new ResponseEntity<String>("Blog Added", HttpStatus.OK);
+			return new ResponseEntity<Blog>(blog, HttpStatus.OK);
 		} 
 		else
 		{
-			return new ResponseEntity<String>("Failure", HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<Blog>(blog, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 @GetMapping("/approveBlog/{blogId}")
-public ResponseEntity<String>approveBlog(@PathVariable("blogId")int blogId)
+public ResponseEntity<Blog>approveBlog(@PathVariable("blogId")int blogId)
 {
 	Blog blog=(Blog)blogDAO.getBlog(blogId);
 	if(blogDAO.approvalBlog(blog))
 	{
-		return new ResponseEntity<String>("Approved",HttpStatus.OK);
+		return new ResponseEntity<Blog>(blog,HttpStatus.OK);
 	}
 	else
 	{
-		return new ResponseEntity<String>("Error",HttpStatus.NOT_FOUND);
+		return new ResponseEntity<Blog>(blog,HttpStatus.NOT_FOUND);
 		
 		
 	}
 }
 
 @GetMapping("/rejectBlog/{blogId}")
-public ResponseEntity<String>rejectBlog(@PathVariable("blogId")int blogId)
+public ResponseEntity<Blog>rejectBlog(@PathVariable("blogId")int blogId)
 {
-	Blog blog=(Blog)blogDAO.getBlog(blogId);
+	Blog blog=blogDAO.getBlog(blogId);
 	if(blogDAO.rejectBlog(blog))
 	{
-		return new ResponseEntity<String>("rejected",HttpStatus.OK);
+		return new ResponseEntity<Blog>(blog,HttpStatus.OK);
 	}
 	else
 	{
-		return new ResponseEntity<String>("Error",HttpStatus.NOT_FOUND);
+		return new ResponseEntity<Blog>(blog,HttpStatus.NOT_FOUND);
 		
 		
 	}
 }
 @GetMapping("/deleteBlog/{blogId}")
-public ResponseEntity<String>deleteBlog(@PathVariable("blogId")int blogId)
-{
+public ResponseEntity<Blog>deleteBlog(@PathVariable("blogId")int blogId)
+{ Blog blog=blogDAO.getBlog(blogId);
+
 	
 	if(blogDAO.deleteBlog(blogId))
 	{
-		return new ResponseEntity<String>("deleted",HttpStatus.OK);
+		return new ResponseEntity<Blog>(blog,HttpStatus.OK);
 	}
 	else
 	{
-		return new ResponseEntity<String>("Error",HttpStatus.NOT_FOUND);
+		return new ResponseEntity<Blog>(blog,HttpStatus.NOT_FOUND);
 		
 		
 	}
@@ -143,8 +143,12 @@ public ResponseEntity<String>getBlog(@PathVariable("blogId")int blogId)
 @GetMapping("/showAllApprovedBlogs")
 public ResponseEntity<List<Blog>> showAllAppovedBlogs(HttpSession session)
 {
-	/*String loginname=(String)(session.getAttribute("user")).getLoginname();
-			List<Blog> listBlogs=blogDAO.listApprovedBlogs(loginname);
+	//String uname=(session.getAttribute("u")).toString();
+//	String loginname=(User)session.getAttribute("u")).getLoginname();
+	
+	String loginname=session.getAttribute("u").toString();
+	
+			List<Blog> listBlogs=blogDAO.listApprovedBlogs();
 	if(listBlogs!=null)
 	{
 		return new ResponseEntity<List<Blog>>(listBlogs,HttpStatus.OK);
@@ -154,8 +158,49 @@ public ResponseEntity<List<Blog>> showAllAppovedBlogs(HttpSession session)
 	else
 	{
 		return new ResponseEntity<List<Blog>>(listBlogs,HttpStatus.INTERNAL_SERVER_ERROR);
-	}*/
-	return null;
+	
 }
+
+}
+@GetMapping("/showUserBlogs")
+public ResponseEntity<List<Blog>>userBlogs(HttpSession session)
+{
+	//String uname=(session.getAttribute("u")).toString();
+//	String loginname=(User)session.getAttribute("u")).getLoginname();
+	
+	String loginname=session.getAttribute("u").toString();
+	
+			List<Blog> listBlogs=blogDAO.listBlogs(loginname);
+	if(listBlogs!=null)
+	{
+		return new ResponseEntity<List<Blog>>(listBlogs,HttpStatus.OK);
+		
+		
+	}
+	else
+	{
+		return new ResponseEntity<List<Blog>>(listBlogs,HttpStatus.INTERNAL_SERVER_ERROR);
+	
+}
+
+}
+
+@GetMapping("/showAllBlogs")
+public ResponseEntity<List<Blog>>showAllBlog()
+{
+	List<Blog> listAllBlogs=blogDAO.listAllBlogs();
+	if(listAllBlogs!=null)
+	{
+		return new ResponseEntity<List<Blog>>(listAllBlogs,HttpStatus.OK);
+		
+	}
+	else
+	{
+		return new ResponseEntity<List<Blog>>(listAllBlogs,HttpStatus.INTERNAL_SERVER_ERROR);
+		
+	}
+}
+
+
 
 }
